@@ -107,7 +107,8 @@ curl http://localhost:8080/search?keyword=melbourne
     {
         "postcode": "2055",
         "suburb": "NORTH SYDNEY",
-        "state": "NSW"
+        "state": "NSW",
+        "category": "Delivery Area"
     }
 ]
 ```
