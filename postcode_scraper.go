@@ -17,6 +17,7 @@ type PostcodeResult struct {
 	Postcode string `json:"postcode"`
 	Suburb   string `json:"suburb"`
 	State    string `json:"state"`
+	Category string `json:"category"`
 }
 
 // Base URL for the Australia Post postcode search.
@@ -113,9 +114,10 @@ func searchPostcodes(keyword string) string {
 
 		// Find all table data cells (<td>) in the current row
 		cols := row.Find("td")
-
 		// Columns are: 0=Postcode, 1=Suburb, 2=Category
-		if cols.Length() >= 2 {
+		if cols.Length() >= 3 {
+			categoryText := strings.TrimSpace(cols.Eq(2).Text())
+
 			// Postcode is in the first column (index 0)
 			postcodeText := strings.TrimSpace(cols.Eq(0).Text())
 
@@ -142,6 +144,7 @@ func searchPostcodes(keyword string) string {
 					Postcode: postcodeText,
 					Suburb:   suburb,
 					State:    state,
+					Category: categoryText,
 				})
 			}
 		}
